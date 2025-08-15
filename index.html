@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cestinho - Lista de Compras</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="app-title">Cestinho</h1>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="pt">Português</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="status-bar">
+            <div class="status-indicator" id="status-indicator">
+                <span class="status-icon" id="status-icon">●</span>
+                <span id="status-text">Normal</span>
+            </div>
+            <div class="totals">
+                <span id="total-items">0 itens</span> | 
+                <span id="total-weight">0.0 kg</span>
+            </div>
+        </div>
+
+        <div class="settings">
+            <div class="settings-item">
+                <label for="max-items" id="max-items-label">Máximo de itens:</label>
+                <input type="number" id="max-items" value="10" min="1">
+            </div>
+            <div class="settings-item">
+                <label for="max-weight" id="max-weight-label">Peso máximo (kg):</label>
+                <input type="number" id="max-weight" value="15" min="0.1" step="0.1">
+            </div>
+        </div>
+
+        <form id="add-item-form" class="add-item-form">
+            <div class="form-group">
+                <label for="item-name" id="item-name-label">Nome do item:</label>
+                <input type="text" id="item-name" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="item-quantity" id="item-quantity-label">Quantidade:</label>
+                    <input type="number" id="item-quantity" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-weight" id="item-weight-label">Peso (kg):</label>
+                    <input type="number" id="item-weight" value="0.1" min="0.01" step="0.01" required>
+                </div>
+            </div>
+            <button type="submit" id="add-button">Adicionar Item</button>
+        </form>
+
+        <div class="lists-container">
+            <div class="list-section">
+                <h2 id="pending-title">Lista de Compras</h2>
+                <ul id="pending-list" class="items-list"></ul>
+            </div>
+
+            <div class="list-section">
+                <h2 id="completed-title">Concluídos</h2>
+                <ul id="completed-list" class="items-list"></ul>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="export-button">Exportar Lista</button>
+            <label for="import-file" id="import-button">Importar Lista</label>
+            <input type="file" id="import-file" accept=".json" style="display: none;">
+        </div>
+
+        <footer>
+            <a href="https://github.com/dwildt/cestinho" target="_blank">GitHub</a> | 
+            <a href="https://github.com/sponsors/dwildt" target="_blank">Sponsors</a> | 
+            <span>Feito com Claude Code</span>
+        </footer>
+    </div>
+
+    <script src="scripts/i18n.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
