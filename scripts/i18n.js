@@ -37,7 +37,10 @@ class I18n {
             'app-title', 'max-items-label', 'max-weight-label',
             'item-name-label', 'item-quantity-label', 'item-weight-label',
             'add-button', 'pending-title', 'completed-title',
-            'export-button', 'import-button'
+            'export-button', 'import-button', 'modal-title',
+            'modal-max-items-label', 'modal-max-weight-label',
+            'modal-max-items-help', 'modal-max-weight-help',
+            'save-settings', 'cancel-settings'
         ];
 
         elementsToTranslate.forEach(key => {
@@ -52,9 +55,9 @@ class I18n {
         });
 
         // Update footer
-        const footer = document.querySelector('footer');
-        if (footer) {
-            footer.innerHTML = `
+        const footerContent = document.querySelector('.footer-content');
+        if (footerContent) {
+            footerContent.innerHTML = `
                 <a href="https://github.com/dwildt/cestinho" target="_blank">${this.get('footer-github')}</a> | 
                 <a href="https://github.com/sponsors/dwildt" target="_blank">${this.get('footer-sponsors')}</a> | 
                 <span>${this.get('footer-made-with')}</span>

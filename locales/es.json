@@ -20,5 +20,12 @@
     "delete-button": "Eliminar",
     "footer-github": "GitHub",
     "footer-sponsors": "Patrocinadores",
-    "footer-made-with": "Hecho con Claude Code"
+    "footer-made-with": "Hecho con Claude Code",
+    "modal-title": "Configuración",
+    "modal-max-items-label": "Máximo de artículos:",
+    "modal-max-weight-label": "Peso máximo (kg):",
+    "modal-max-items-help": "Cantidad máxima de artículos antes de la alerta amarilla",
+    "modal-max-weight-help": "Peso máximo antes de la alerta amarilla",
+    "save-settings": "Guardar",
+    "cancel-settings": "Cancelar"
 }

@@ -43,19 +43,6 @@ class ShoppingListApp {
             this.changeLanguage(e.target.value);
         });
 
-        // Settings change
-        document.getElementById('max-items').addEventListener('change', (e) => {
-            this.settings.maxItems = parseInt(e.target.value);
-            this.saveSettings();
-            this.updateStatus();
-        });
-
-        document.getElementById('max-weight').addEventListener('change', (e) => {
-            this.settings.maxWeight = parseFloat(e.target.value);
-            this.saveSettings();
-            this.updateStatus();
-        });
-
         // Export/Import
         document.getElementById('export-button').addEventListener('click', () => {
             this.storage.exportData();
@@ -63,6 +50,37 @@ class ShoppingListApp {
 
         document.getElementById('import-file').addEventListener('change', (e) => {
             this.importData(e.target.files[0]);
+        });
+
+        // Settings Modal
+        document.getElementById('settings-button').addEventListener('click', () => {
+            this.openSettingsModal();
+        });
+
+        document.querySelector('.close').addEventListener('click', () => {
+            this.closeSettingsModal();
+        });
+
+        document.getElementById('cancel-settings').addEventListener('click', () => {
+            this.closeSettingsModal();
+        });
+
+        document.getElementById('save-settings').addEventListener('click', () => {
+            this.saveSettingsFromModal();
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('settings-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'settings-modal') {
+                this.closeSettingsModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeSettingsModal();
+            }
         });
     }
 
@@ -159,11 +177,11 @@ class ShoppingListApp {
                     </div>
                 </div>
                 <div class="item-actions">
-                    <button class="btn-complete" onclick="app.completeItem(${item.id})">
-                        ${this.i18n.get('complete-button')}
+                    <button class="btn-complete" onclick="app.completeItem(${item.id})" title="${this.i18n.get('complete-button')}">
+                        ✅
                     </button>
-                    <button class="btn-delete" onclick="app.deleteItem(${item.id})">
-                        ${this.i18n.get('delete-button')}
+                    <button class="btn-delete" onclick="app.deleteItem(${item.id})" title="${this.i18n.get('delete-button')}">
+                        🗑️
                     </button>
                 </div>
             `;
@@ -186,11 +204,11 @@ class ShoppingListApp {
                     </div>
                 </div>
                 <div class="item-actions">
-                    <button class="btn-restore" onclick="app.restoreItem(${item.id})">
-                        ${this.i18n.get('restore-button')}
+                    <button class="btn-restore" onclick="app.restoreItem(${item.id})" title="${this.i18n.get('restore-button')}">
+                        ↩️
                     </button>
-                    <button class="btn-delete" onclick="app.deleteItem(${item.id}, true)">
-                        ${this.i18n.get('delete-button')}
+                    <button class="btn-delete" onclick="app.deleteItem(${item.id}, true)" title="${this.i18n.get('delete-button')}">
+                        🗑️
                     </button>
                 </div>
             `;
@@ -236,9 +254,48 @@ class ShoppingListApp {
     }
 
     updateSettingsUI() {
-        document.getElementById('max-items').value = this.settings.maxItems;
-        document.getElementById('max-weight').value = this.settings.maxWeight;
+        // Update modal inputs
+        document.getElementById('modal-max-items').value = this.settings.maxItems;
+        document.getElementById('modal-max-weight').value = this.settings.maxWeight;
         document.getElementById('language-select').value = this.settings.language;
+    }
+
+    openSettingsModal() {
+        // Update modal values with current settings
+        document.getElementById('modal-max-items').value = this.settings.maxItems;
+        document.getElementById('modal-max-weight').value = this.settings.maxWeight;
+        
+        // Show modal
+        const modal = document.getElementById('settings-modal');
+        modal.classList.add('show');
+        
+        // Focus on first input
+        document.getElementById('modal-max-items').focus();
+    }
+
+    closeSettingsModal() {
+        const modal = document.getElementById('settings-modal');
+        modal.classList.remove('show');
+    }
+
+    saveSettingsFromModal() {
+        const maxItems = parseInt(document.getElementById('modal-max-items').value);
+        const maxWeight = parseFloat(document.getElementById('modal-max-weight').value);
+
+        // Validate inputs
+        if (maxItems < 1 || maxWeight < 0.1) {
+            alert('Por favor, insira valores válidos.');
+            return;
+        }
+
+        // Update settings
+        this.settings.maxItems = maxItems;
+        this.settings.maxWeight = maxWeight;
+        
+        // Save and update UI
+        this.saveSettings();
+        this.updateStatus();
+        this.closeSettingsModal();
     }
 
     async changeLanguage(language) {
