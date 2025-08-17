@@ -14,6 +14,7 @@
     "pending-title": "Shopping List",
     "completed-title": "Completed",
     "export-button": "Export List",
+    "export-whatsapp": "WhatsApp",
     "import-button": "Import List",
     "complete-button": "Complete",
     "restore-button": "Restore",
@@ -27,5 +28,11 @@
     "modal-max-items-help": "Maximum number of items before yellow alert",
     "modal-max-weight-help": "Maximum weight before yellow alert",
     "save-settings": "Save",
-    "cancel-settings": "Cancel"
+    "cancel-settings": "Cancel",
+    "add-item-modal-title": "Add Item",
+    "modal-item-name-label": "Item name:",
+    "modal-item-quantity-label": "Quantity:",
+    "modal-item-weight-label": "Unit weight (kg):",
+    "modal-add-button": "Add",
+    "cancel-add-item": "Cancel"
 }

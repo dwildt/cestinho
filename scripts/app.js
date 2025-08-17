@@ -32,10 +32,15 @@ class ShoppingListApp {
     }
 
     setupEventListeners() {
-        // Form submission
-        document.getElementById('add-item-form').addEventListener('submit', (e) => {
+        // Add item button
+        document.getElementById('add-item-btn').addEventListener('click', () => {
+            this.openAddItemModal();
+        });
+
+        // Add item modal form submission
+        document.getElementById('add-item-modal-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            this.addItem();
+            this.addItemFromModal();
         });
 
         // Language change
@@ -48,8 +53,21 @@ class ShoppingListApp {
             this.storage.exportData();
         });
 
+        document.getElementById('export-whatsapp').addEventListener('click', () => {
+            this.exportToWhatsApp();
+        });
+
         document.getElementById('import-file').addEventListener('change', (e) => {
             this.importData(e.target.files[0]);
+        });
+
+        // Add Item Modal
+        document.getElementById('close-add-item').addEventListener('click', () => {
+            this.closeAddItemModal();
+        });
+
+        document.getElementById('cancel-add-item').addEventListener('click', () => {
+            this.closeAddItemModal();
         });
 
         // Settings Modal
@@ -69,25 +87,51 @@ class ShoppingListApp {
             this.saveSettingsFromModal();
         });
 
-        // Close modal when clicking outside
+        // Close modals when clicking outside
+        document.getElementById('add-item-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'add-item-modal') {
+                this.closeAddItemModal();
+            }
+        });
+
         document.getElementById('settings-modal').addEventListener('click', (e) => {
             if (e.target.id === 'settings-modal') {
                 this.closeSettingsModal();
             }
         });
 
-        // Close modal with Escape key
+        // Close modals with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                this.closeAddItemModal();
                 this.closeSettingsModal();
             }
         });
     }
 
-    addItem() {
-        const name = document.getElementById('item-name').value.trim();
-        const quantity = parseInt(document.getElementById('item-quantity').value);
-        const weight = parseFloat(document.getElementById('item-weight').value);
+    openAddItemModal() {
+        // Show modal
+        const modal = document.getElementById('add-item-modal');
+        modal.classList.add('show');
+        
+        // Focus on first input
+        document.getElementById('modal-item-name').focus();
+    }
+
+    closeAddItemModal() {
+        const modal = document.getElementById('add-item-modal');
+        modal.classList.remove('show');
+        
+        // Clear form
+        document.getElementById('add-item-modal-form').reset();
+        document.getElementById('modal-item-quantity').value = 1;
+        document.getElementById('modal-item-weight').value = 1;
+    }
+
+    addItemFromModal() {
+        const name = document.getElementById('modal-item-name').value.trim();
+        const quantity = parseInt(document.getElementById('modal-item-quantity').value);
+        const weight = parseFloat(document.getElementById('modal-item-weight').value);
 
         if (!name || quantity <= 0 || weight <= 0) {
             alert('Por favor, preencha todos os campos corretamente.');
@@ -98,7 +142,8 @@ class ShoppingListApp {
             id: this.nextId++,
             name,
             quantity,
-            weight: parseFloat(weight.toFixed(2)),
+            unitWeight: parseFloat(weight.toFixed(2)),
+            totalWeight: parseFloat((quantity * weight).toFixed(2)),
             dateAdded: new Date().toISOString()
         };
 
@@ -108,10 +153,8 @@ class ShoppingListApp {
         this.updateTotals();
         this.updateStatus();
 
-        // Clear form
-        document.getElementById('add-item-form').reset();
-        document.getElementById('item-quantity').value = 1;
-        document.getElementById('item-weight').value = 0.1;
+        // Close modal
+        this.closeAddItemModal();
     }
 
     completeItem(id) {
@@ -147,13 +190,11 @@ class ShoppingListApp {
         const itemIndex = list.findIndex(item => item.id === id);
         
         if (itemIndex !== -1) {
-            if (confirm('Tem certeza que deseja excluir este item?')) {
-                list.splice(itemIndex, 1);
-                this.saveData();
-                this.updateLists();
-                this.updateTotals();
-                this.updateStatus();
-            }
+            list.splice(itemIndex, 1);
+            this.saveData();
+            this.updateLists();
+            this.updateTotals();
+            this.updateStatus();
         }
     }
 
@@ -173,7 +214,7 @@ class ShoppingListApp {
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
                     <div class="item-details">
-                        ${item.quantity} ${this.i18n.get('total-items')} • ${item.weight} ${this.i18n.get('total-weight')}
+                        ${item.quantity} ${this.i18n.get('total-items')} • ${item.unitWeight || item.weight} ${this.i18n.get('total-weight')}/un • Total: ${item.totalWeight || (item.quantity * (item.weight || 0)).toFixed(2)} ${this.i18n.get('total-weight')}
                     </div>
                 </div>
                 <div class="item-actions">
@@ -200,7 +241,7 @@ class ShoppingListApp {
                 <div class="item-info">
                     <div class="item-name">${item.name}</div>
                     <div class="item-details">
-                        ${item.quantity} ${this.i18n.get('total-items')} • ${item.weight} ${this.i18n.get('total-weight')}
+                        ${item.quantity} ${this.i18n.get('total-items')} • ${item.unitWeight || item.weight} ${this.i18n.get('total-weight')}/un • Total: ${item.totalWeight || (item.quantity * (item.weight || 0)).toFixed(2)} ${this.i18n.get('total-weight')}
                     </div>
                 </div>
                 <div class="item-actions">
@@ -218,7 +259,7 @@ class ShoppingListApp {
 
     updateTotals() {
         const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
-        const totalWeight = this.data.pending.reduce((sum, item) => sum + item.weight, 0);
+        const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
 
         document.getElementById('total-items').textContent = 
             `${totalItems} ${this.i18n.get('total-items')}`;
@@ -228,7 +269,7 @@ class ShoppingListApp {
 
     updateStatus() {
         const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
-        const totalWeight = this.data.pending.reduce((sum, item) => sum + item.weight, 0);
+        const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
 
         const statusBar = document.querySelector('.status-bar');
         const statusText = document.getElementById('status-text');
@@ -342,6 +383,64 @@ class ShoppingListApp {
 
     saveSettings() {
         this.storage.saveSettings(this.settings);
+    }
+
+    exportToWhatsApp() {
+        if (this.data.pending.length === 0) {
+            alert('Lista vazia! Adicione alguns itens antes de exportar.');
+            return;
+        }
+
+        // Calculate totals
+        const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
+        const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
+
+        // Get current language texts
+        const texts = {
+            pt: {
+                title: 'Lista de Compras - Cestinho',
+                items: 'itens',
+                weight: 'kg',
+                total: 'Total',
+                footer: 'Lista criada com Cestinho'
+            },
+            en: {
+                title: 'Shopping List - Little Basket',
+                items: 'items',
+                weight: 'kg',
+                total: 'Total',
+                footer: 'List created with Little Basket'
+            },
+            es: {
+                title: 'Lista de Compras - Cestita',
+                items: 'artículos',
+                weight: 'kg',
+                total: 'Total',
+                footer: 'Lista creada con Cestita'
+            }
+        };
+
+        const lang = this.settings.language;
+        const t = texts[lang] || texts.pt;
+
+        // Build WhatsApp message
+        let message = `${t.title}\n\n`;
+        
+        this.data.pending.forEach((item) => {
+            const unitWeight = item.unitWeight || item.weight || 0;
+            const totalWeight = item.totalWeight || (item.quantity * unitWeight);
+            message += `- ${item.quantity}x ${item.name} (${unitWeight} ${t.weight}/un = ${totalWeight.toFixed(2)} ${t.weight})\n`;
+        });
+
+        message += `\n${t.total}: ${totalItems} ${t.items} | ${totalWeight.toFixed(1)} ${t.weight}\n\n`;
+        message += `${t.footer}`;
+
+        // Encode message for WhatsApp URL
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+
+        // Open WhatsApp (works on mobile and desktop)
+        window.open(whatsappUrl, '_blank');
     }
 }
 

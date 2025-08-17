@@ -14,6 +14,7 @@
     "pending-title": "Lista de Compras",
     "completed-title": "Completados",
     "export-button": "Exportar Lista",
+    "export-whatsapp": "WhatsApp",
     "import-button": "Importar Lista",
     "complete-button": "Completar",
     "restore-button": "Restaurar",
@@ -27,5 +28,11 @@
     "modal-max-items-help": "Cantidad máxima de artículos antes de la alerta amarilla",
     "modal-max-weight-help": "Peso máximo antes de la alerta amarilla",
     "save-settings": "Guardar",
-    "cancel-settings": "Cancelar"
+    "cancel-settings": "Cancelar",
+    "add-item-modal-title": "Agregar Artículo",
+    "modal-item-name-label": "Nombre del artículo:",
+    "modal-item-quantity-label": "Cantidad:",
+    "modal-item-weight-label": "Peso unitario (kg):",
+    "modal-add-button": "Agregar",
+    "cancel-add-item": "Cancelar"
 }

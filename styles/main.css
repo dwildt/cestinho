@@ -173,6 +173,7 @@ button:active {
     transform: translateY(1px);
 }
 
+
 .lists-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -180,17 +181,51 @@ button:active {
     margin-bottom: 25px;
 }
 
-.list-section h2 {
-    color: #8b4513;
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 15px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
 }
 
+.list-section h2 {
+    color: #8b4513;
+    margin: 0;
+}
+
+.list-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.add-item-btn,
+.list-action-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s, transform 0.1s;
+    color: #ff7b00;
+}
+
+.add-item-btn:hover,
+.list-action-btn:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+}
+
+.add-item-btn:active,
+.list-action-btn:active {
+    transform: scale(0.95);
+}
+
 .items-list {
     list-style: none;
-    max-height: 400px;
-    overflow-y: auto;
 }
 
 .item {

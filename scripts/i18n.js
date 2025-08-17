@@ -37,10 +37,12 @@ class I18n {
             'app-title', 'max-items-label', 'max-weight-label',
             'item-name-label', 'item-quantity-label', 'item-weight-label',
             'add-button', 'pending-title', 'completed-title',
-            'export-button', 'import-button', 'modal-title',
+            'export-button', 'export-whatsapp', 'import-button', 'modal-title',
             'modal-max-items-label', 'modal-max-weight-label',
             'modal-max-items-help', 'modal-max-weight-help',
-            'save-settings', 'cancel-settings'
+            'save-settings', 'cancel-settings',
+            'add-item-modal-title', 'modal-item-name-label', 'modal-item-quantity-label',
+            'modal-item-weight-label', 'modal-add-button', 'cancel-add-item'
         ];
 
         elementsToTranslate.forEach(key => {

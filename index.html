@@ -30,33 +30,22 @@
             </div>
         </div>
 
-
-        <form id="add-item-form" class="add-item-form">
-            <div class="form-group">
-                <label for="item-name" id="item-name-label">Nome do item:</label>
-                <input type="text" id="item-name" required>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="item-quantity" id="item-quantity-label">Quantidade:</label>
-                    <input type="number" id="item-quantity" value="1" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="item-weight" id="item-weight-label">Peso (kg):</label>
-                    <input type="number" id="item-weight" value="0.1" min="0.01" step="0.01" required>
-                </div>
-            </div>
-            <button type="submit" id="add-button">Adicionar Item</button>
-        </form>
-
         <div class="lists-container">
             <div class="list-section">
-                <h2 id="pending-title">Lista de Compras</h2>
+                <div class="list-header">
+                    <h2 id="pending-title">Lista de Compras</h2>
+                    <div class="list-actions">
+                        <button id="export-whatsapp" class="list-action-btn" title="Compartilhar no WhatsApp">📱</button>
+                        <button id="add-item-btn" class="add-item-btn" title="Adicionar item">➕</button>
+                    </div>
+                </div>
                 <ul id="pending-list" class="items-list"></ul>
             </div>
 
             <div class="list-section">
-                <h2 id="completed-title">Concluídos</h2>
+                <div class="list-header">
+                    <h2 id="completed-title">Concluídos</h2>
+                </div>
                 <ul id="completed-list" class="items-list"></ul>
             </div>
         </div>
@@ -101,6 +90,36 @@
             <div class="modal-footer">
                 <button id="save-settings" class="btn-primary">Salvar</button>
                 <button id="cancel-settings" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Adicionar Item -->
+    <div id="add-item-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="add-item-modal-title">Adicionar Item</h2>
+                <span class="close" id="close-add-item">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="add-item-modal-form" class="settings-form">
+                    <div class="form-group">
+                        <label for="modal-item-name" id="modal-item-name-label">Nome do item:</label>
+                        <input type="text" id="modal-item-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-item-quantity" id="modal-item-quantity-label">Quantidade:</label>
+                        <input type="number" id="modal-item-quantity" value="1" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-item-weight" id="modal-item-weight-label">Peso (kg):</label>
+                        <input type="number" id="modal-item-weight" value="1" min="0.01" step="0.01" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="add-item-modal-form" id="modal-add-button" class="btn-primary">Adicionar</button>
+                <button id="cancel-add-item" class="btn-secondary">Cancelar</button>
             </div>
         </div>
     </div>
