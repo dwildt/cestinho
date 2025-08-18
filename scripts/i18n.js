@@ -37,7 +37,7 @@ class I18n {
             'app-title', 'max-items-label', 'max-weight-label',
             'item-name-label', 'item-quantity-label', 'item-weight-label',
             'add-button', 'pending-title', 'completed-title',
-            'export-button', 'export-whatsapp', 'import-button', 'modal-title',
+            'export-button', 'import-button', 'modal-title',
             'modal-max-items-label', 'modal-max-weight-label',
             'modal-max-items-help', 'modal-max-weight-help',
             'save-settings', 'cancel-settings',
