@@ -55,6 +55,19 @@ class ShoppingListApp {
             });
         });
 
+        // Integrations Modal
+        document.getElementById('integrations-button').addEventListener('click', () => {
+            this.openIntegrationsModal();
+        });
+
+        document.getElementById('close-integrations').addEventListener('click', () => {
+            this.closeIntegrationsModal();
+        });
+
+        document.getElementById('close-integrations-btn').addEventListener('click', () => {
+            this.closeIntegrationsModal();
+        });
+
         // Export/Import
         document.getElementById('export-button').addEventListener('click', () => {
             this.storage.exportData();
@@ -62,6 +75,14 @@ class ShoppingListApp {
 
         document.getElementById('export-whatsapp').addEventListener('click', () => {
             this.exportToWhatsApp();
+        });
+
+        document.getElementById('export-whatsapp-modal').addEventListener('click', () => {
+            this.exportToWhatsApp();
+        });
+
+        document.getElementById('copy-clipboard').addEventListener('click', () => {
+            this.copyToClipboard();
         });
 
         document.getElementById('import-file').addEventListener('change', (e) => {
@@ -107,11 +128,18 @@ class ShoppingListApp {
             }
         });
 
+        document.getElementById('integrations-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'integrations-modal') {
+                this.closeIntegrationsModal();
+            }
+        });
+
         // Close modals with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 this.closeAddItemModal();
                 this.closeSettingsModal();
+                this.closeIntegrationsModal();
             }
         });
     }
@@ -133,6 +161,16 @@ class ShoppingListApp {
         document.getElementById('add-item-modal-form').reset();
         document.getElementById('modal-item-quantity').value = 1;
         document.getElementById('modal-item-weight').value = 1;
+    }
+
+    openIntegrationsModal() {
+        const modal = document.getElementById('integrations-modal');
+        modal.classList.add('show');
+    }
+
+    closeIntegrationsModal() {
+        const modal = document.getElementById('integrations-modal');
+        modal.classList.remove('show');
     }
 
     addItemFromModal() {
@@ -265,6 +303,7 @@ class ShoppingListApp {
     }
 
     updateTotals() {
+        // Pending totals
         const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
         const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
 
@@ -272,17 +311,25 @@ class ShoppingListApp {
             `${totalItems} ${this.i18n.get('total-items')}`;
         document.getElementById('total-weight').textContent = 
             `${totalWeight.toFixed(1)} ${this.i18n.get('total-weight')}`;
+
+        // Completed totals
+        const completedItems = this.data.completed.reduce((sum, item) => sum + item.quantity, 0);
+        const completedWeight = this.data.completed.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || item.unitWeight || 0))), 0);
+
+        document.getElementById('completed-total-items').textContent = 
+            `${completedItems} ${this.i18n.get('total-items')}`;
+        document.getElementById('completed-total-weight').textContent = 
+            `${completedWeight.toFixed(1)} ${this.i18n.get('total-weight')}`;
     }
 
     updateStatus() {
         const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
         const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
 
-        const statusBar = document.querySelector('.status-bar');
-        const statusText = document.getElementById('status-text');
+        const statusIcon = document.getElementById('status-icon');
         
         // Remove existing status classes
-        statusBar.classList.remove('warning', 'danger');
+        statusIcon.classList.remove('warning', 'danger');
 
         // Check limits
         const itemsExceeded = totalItems > this.settings.maxItems;
@@ -291,13 +338,13 @@ class ShoppingListApp {
         const weightDoubleExceeded = totalWeight > (this.settings.maxWeight * 2);
 
         if (itemsDoubleExceeded || weightDoubleExceeded) {
-            statusBar.classList.add('danger');
-            statusText.textContent = this.i18n.get('status-danger');
+            statusIcon.classList.add('danger');
+            statusIcon.title = this.i18n.get('status-danger');
         } else if (itemsExceeded || weightExceeded) {
-            statusBar.classList.add('warning');
-            statusText.textContent = this.i18n.get('status-warning');
+            statusIcon.classList.add('warning');
+            statusIcon.title = this.i18n.get('status-warning');
         } else {
-            statusText.textContent = this.i18n.get('status-normal');
+            statusIcon.title = this.i18n.get('status-normal');
         }
     }
 
@@ -448,6 +495,65 @@ class ShoppingListApp {
 
         // Open WhatsApp (works on mobile and desktop)
         window.open(whatsappUrl, '_blank');
+    }
+
+    copyToClipboard() {
+        if (this.data.pending.length === 0) {
+            alert('Lista vazia! Adicione alguns itens antes de copiar.');
+            return;
+        }
+
+        // Calculate totals
+        const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
+        const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
+
+        // Get current language texts
+        const texts = {
+            pt: {
+                title: 'Lista de Compras - Cestinho',
+                items: 'itens',
+                weight: 'kg',
+                total: 'Total',
+                footer: 'Lista criada com Cestinho'
+            },
+            en: {
+                title: 'Shopping List - Little Basket',
+                items: 'items',
+                weight: 'kg',
+                total: 'Total',
+                footer: 'List created with Little Basket'
+            },
+            es: {
+                title: 'Lista de Compras - Cestita',
+                items: 'artículos',
+                weight: 'kg',
+                total: 'Total',
+                footer: 'Lista creada con Cestita'
+            }
+        };
+
+        const lang = this.settings.language;
+        const t = texts[lang] || texts.pt;
+
+        // Build message
+        let message = `${t.title}\n\n`;
+        
+        this.data.pending.forEach((item) => {
+            const unitWeight = item.unitWeight || item.weight || 0;
+            const totalWeight = item.totalWeight || (item.quantity * unitWeight);
+            message += `- ${item.quantity}x ${item.name} (${unitWeight} ${t.weight}/un = ${totalWeight.toFixed(2)} ${t.weight})\n`;
+        });
+
+        message += `\n${t.total}: ${totalItems} ${t.items} | ${totalWeight.toFixed(1)} ${t.weight}\n\n`;
+        message += `${t.footer}`;
+
+        // Copy to clipboard
+        navigator.clipboard.writeText(message).then(() => {
+            alert('Lista copiada para a área de transferência!');
+        }).catch(err => {
+            console.error('Erro ao copiar:', err);
+            alert('Erro ao copiar para a área de transferência.');
+        });
     }
 }
 

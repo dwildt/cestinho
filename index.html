@@ -18,21 +18,20 @@
             </div>
         </header>
 
-        <div class="status-bar">
-            <div class="status-indicator" id="status-indicator">
-                <span class="status-icon" id="status-icon">●</span>
-                <span id="status-text">Normal</span>
-            </div>
-            <div class="totals">
-                <span id="total-items">0 itens</span> | 
-                <span id="total-weight">0.0 kg</span>
-            </div>
-        </div>
 
         <div class="lists-container">
             <div class="list-section">
                 <div class="list-header">
-                    <h2 id="pending-title">Lista de Compras</h2>
+                    <div class="list-title-section">
+                        <div class="title-with-status">
+                            <h2 id="pending-title">Lista de Compras</h2>
+                            <span class="status-icon" id="status-icon" title="Tá leve">●</span>
+                        </div>
+                        <div class="list-totals">
+                            <span id="total-items">0 itens</span> | 
+                            <span id="total-weight">0.0 kg</span>
+                        </div>
+                    </div>
                     <div class="list-actions">
                         <button id="export-whatsapp" class="list-action-btn" title="Compartilhar no WhatsApp">📲</button>
                         <button id="add-item-btn" class="add-item-btn" title="Adicionar item">➕</button>
@@ -43,17 +42,18 @@
 
             <div class="list-section">
                 <div class="list-header">
-                    <h2 id="completed-title">Concluídos</h2>
+                    <div class="list-title-section">
+                        <h2 id="completed-title">Concluídos</h2>
+                        <div class="list-totals">
+                            <span id="completed-total-items">0 itens</span> | 
+                            <span id="completed-total-weight">0.0 kg</span>
+                        </div>
+                    </div>
                 </div>
                 <ul id="completed-list" class="items-list"></ul>
             </div>
         </div>
 
-        <div class="actions">
-            <button id="export-button">Exportar Lista</button>
-            <label for="import-file" id="import-button">Importar Lista</label>
-            <input type="file" id="import-file" accept=".json" style="display: none;">
-        </div>
 
         <footer>
             <div class="footer-content">
@@ -61,7 +61,10 @@
                 <a href="https://github.com/sponsors/dwildt" target="_blank">Sponsors</a> | 
                 <span>Feito com Claude Code</span>
             </div>
-            <button id="settings-button" class="settings-button" title="Configurações">⚙️</button>
+            <div class="footer-buttons">
+                <button id="integrations-button" class="settings-button" title="Integrações">📤</button>
+                <button id="settings-button" class="settings-button" title="Configurações">⚙️</button>
+            </div>
         </footer>
     </div>
 
@@ -119,6 +122,40 @@
             <div class="modal-footer">
                 <button type="submit" form="add-item-modal-form" id="modal-add-button" class="btn-primary">Adicionar</button>
                 <button id="cancel-add-item" class="btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Integrações -->
+    <div id="integrations-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="integrations-modal-title">Integrações</h2>
+                <span class="close" id="close-integrations">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="integrations-options">
+                    <button id="export-button" class="integration-btn">
+                        <span class="integration-icon">💾</span>
+                        <span id="export-button-text">Exportar Lista</span>
+                    </button>
+                    <label for="import-file" id="import-button" class="integration-btn">
+                        <span class="integration-icon">📁</span>
+                        <span id="import-button-text">Importar Lista</span>
+                    </label>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    <button id="export-whatsapp-modal" class="integration-btn">
+                        <span class="integration-icon">📲</span>
+                        <span id="whatsapp-button-text">Compartilhar WhatsApp</span>
+                    </button>
+                    <button id="copy-clipboard" class="integration-btn">
+                        <span class="integration-icon">📋</span>
+                        <span id="clipboard-button-text">Copiar para área de transferência</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="close-integrations-btn" class="btn-secondary">Fechar</button>
             </div>
         </div>
     </div>

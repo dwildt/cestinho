@@ -34,5 +34,10 @@
     "modal-item-quantity-label": "Quantity:",
     "modal-item-weight-label": "Unit weight (kg):",
     "modal-add-button": "Add",
-    "cancel-add-item": "Cancel"
+    "cancel-add-item": "Cancel",
+    "integrations-modal-title": "Integrations",
+    "export-button-text": "Export List",
+    "import-button-text": "Import List",
+    "whatsapp-button-text": "Share WhatsApp",
+    "clipboard-button-text": "Copy to clipboard"
 }

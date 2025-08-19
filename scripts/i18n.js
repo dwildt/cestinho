@@ -42,7 +42,9 @@ class I18n {
             'modal-max-items-help', 'modal-max-weight-help',
             'save-settings', 'cancel-settings',
             'add-item-modal-title', 'modal-item-name-label', 'modal-item-quantity-label',
-            'modal-item-weight-label', 'modal-add-button', 'cancel-add-item'
+            'modal-item-weight-label', 'modal-add-button', 'cancel-add-item',
+            'integrations-modal-title', 'export-button-text', 'import-button-text',
+            'whatsapp-button-text', 'clipboard-button-text'
         ];
 
         elementsToTranslate.forEach(key => {
