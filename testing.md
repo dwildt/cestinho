@@ -7,6 +7,17 @@ Este documento descreve como executar e entender os testes do projeto Cestinho.
 - Node.js (versão 14 ou superior)
 - npm (geralmente vem com Node.js)
 
+## 🌐 Executar o Aplicativo Localmente
+
+Para testar o aplicativo antes de executar os testes:
+
+```bash
+# Método recomendado - usando http-server
+npx http-server -p 3000
+
+# Acesse http://localhost:3000
+```
+
 ## 🚀 Executando os Testes
 
 ### Instalação das Dependências

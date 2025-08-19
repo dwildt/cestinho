@@ -47,10 +47,16 @@ git clone https://github.com/dwildt/cestinho.git
 # Acesse o diretório
 cd cestinho
 
-# Abra o index.html no navegador
-# Ou use um servidor local como:
+# Método 1: Usando http-server (Recomendado)
+npx http-server -p 3000
+# Acesse http://localhost:3000
+
+# Método 2: Python
 python -m http.server 8000
 # Acesse http://localhost:8000
+
+# Método 3: Abrir diretamente no navegador
+# Abra o index.html no navegador (pode ter limitações de CORS)
 ```
 
 ### Executar testes
