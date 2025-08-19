@@ -352,6 +352,7 @@ button:active {
 .integration-btn {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 10px;
     padding: 15px 20px;
     border: 2px solid #ddd;
@@ -362,6 +363,9 @@ button:active {
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
 }
 
 .integration-btn:hover {
@@ -373,24 +377,10 @@ button:active {
 .integration-icon {
     font-size: 20px;
     min-width: 24px;
-}
-
-#import-button {
-    background-color: #6c757d;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
     display: inline-block;
-    transition: background-color 0.2s;
+    text-align: center;
 }
 
-#import-button:hover {
-    background-color: #5a6268;
-}
 
 footer {
     display: flex;

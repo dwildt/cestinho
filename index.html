@@ -136,13 +136,11 @@
             <div class="modal-body">
                 <div class="integrations-options">
                     <button id="export-button" class="integration-btn">
-                        <span class="integration-icon">💾</span>
                         <span id="export-button-text">Exportar Lista</span>
                     </button>
-                    <label for="import-file" id="import-button" class="integration-btn">
-                        <span class="integration-icon">📁</span>
+                    <button for="import-file" id="import-button" class="integration-btn" onclick="document.getElementById('import-file').click()">
                         <span id="import-button-text">Importar Lista</span>
-                    </label>
+                    </button>
                     <input type="file" id="import-file" accept=".json" style="display: none;">
                     <button id="export-whatsapp-modal" class="integration-btn">
                         <span class="integration-icon">📲</span>
