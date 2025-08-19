@@ -43,9 +43,16 @@ class ShoppingListApp {
             this.addItemFromModal();
         });
 
-        // Language change
-        document.getElementById('language-select').addEventListener('change', (e) => {
-            this.changeLanguage(e.target.value);
+        // Language change with flag buttons
+        document.querySelectorAll('.flag-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = e.target.dataset.lang;
+                this.changeLanguage(lang);
+                
+                // Update active flag
+                document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+            });
         });
 
         // Export/Import

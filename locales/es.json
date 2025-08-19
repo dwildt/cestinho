@@ -1,8 +1,8 @@
 {
     "app-title": "Cestita",
-    "status-normal": "Normal",
-    "status-warning": "Atención",
-    "status-danger": "Límite Excedido",
+    "status-normal": "Está liviano",
+    "status-warning": "Hora de ir de compras",
+    "status-danger": "¡Va a quedar muy pesado!",
     "total-items": "artículos",
     "total-weight": "kg",
     "max-items-label": "Máximo de artículos:",

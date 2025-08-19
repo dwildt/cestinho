@@ -66,11 +66,13 @@ class I18n {
             `;
         }
 
-        // Update language select
-        const languageSelect = document.getElementById('language-select');
-        if (languageSelect) {
-            languageSelect.value = this.currentLanguage;
-        }
+        // Update active flag button
+        document.querySelectorAll('.flag-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.lang === this.currentLanguage) {
+                btn.classList.add('active');
+            }
+        });
 
         // Update document language
         document.documentElement.lang = this.currentLanguage;

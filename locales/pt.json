@@ -1,8 +1,8 @@
 {
     "app-title": "Cestinho",
-    "status-normal": "Normal",
-    "status-warning": "Atenção",
-    "status-danger": "Limite Excedido",
+    "status-normal": "Tá leve",
+    "status-warning": "Hora de ir fazer compras",
+    "status-danger": "Vai ficar muito pesado!",
     "total-items": "itens",
     "total-weight": "kg",
     "max-items-label": "Máximo de itens:",

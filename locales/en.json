@@ -1,8 +1,8 @@
 {
     "app-title": "Little Basket",
-    "status-normal": "Normal",
-    "status-warning": "Warning",
-    "status-danger": "Limit Exceeded",
+    "status-normal": "Light load",
+    "status-warning": "Time to go shopping",
+    "status-danger": "It's getting too heavy!",
     "total-items": "items",
     "total-weight": "kg",
     "max-items-label": "Maximum items:",
