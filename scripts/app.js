@@ -349,10 +349,24 @@ class ShoppingListApp {
     }
 
     updateSettingsUI() {
-        // Update modal inputs
-        document.getElementById('modal-max-items').value = this.settings.maxItems;
-        document.getElementById('modal-max-weight').value = this.settings.maxWeight;
-        document.getElementById('language-select').value = this.settings.language;
+        // Update modal inputs - check if elements exist
+        const maxItemsEl = document.getElementById('modal-max-items');
+        const maxWeightEl = document.getElementById('modal-max-weight');
+        
+        if (maxItemsEl) {
+            maxItemsEl.value = this.settings.maxItems;
+        }
+        if (maxWeightEl) {
+            maxWeightEl.value = this.settings.maxWeight;
+        }
+        
+        // Update active flag button
+        document.querySelectorAll('.flag-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.lang === this.settings.language) {
+                btn.classList.add('active');
+            }
+        });
     }
 
     openSettingsModal() {
