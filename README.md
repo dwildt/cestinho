@@ -39,7 +39,7 @@ Uma mini aplicação para gerir listas de compras para supermercados, desenvolvi
 
 ## 📱 Instalação e Execução
 
-### Executar localmente
+### Configuração inicial
 ```bash
 # Clone o repositório
 git clone https://github.com/dwildt/cestinho.git
@@ -47,28 +47,38 @@ git clone https://github.com/dwildt/cestinho.git
 # Acesse o diretório
 cd cestinho
 
-# Método 1: Usando http-server (Recomendado)
+# Instalar dependências (necessário apenas para testes)
+npm install
+```
+
+### Comandos disponíveis
+
+#### Executar servidor local
+```bash
+# Usando npm scripts (Recomendado)
+npm run dev      # Inicia servidor na porta 3000
+npm run serve    # Mesmo que npm run dev
+npm start        # Mesmo que npm run dev
+
+# Usando npx diretamente
 npx http-server -p 3000
 # Acesse http://localhost:3000
+```
 
+#### Executar testes
+```bash
+npm test              # Executa todos os testes uma vez
+npm run test:watch    # Executa testes em modo watch (reexecuta ao salvar)
+```
+
+#### Métodos alternativos para servidor local
+```bash
 # Método 2: Python
 python -m http.server 8000
 # Acesse http://localhost:8000
 
 # Método 3: Abrir diretamente no navegador
 # Abra o index.html no navegador (pode ter limitações de CORS)
-```
-
-### Executar testes
-```bash
-# Instalar dependências
-npm install
-
-# Executar testes
-npm test
-
-# Executar testes em modo watch
-npm run test:watch
 ```
 
 ## 🧪 Testes
@@ -90,9 +100,23 @@ Execute `npm test` para rodar todos os testes.
 
 ## 📝 Estrutura do Projeto
 
+O projeto segue os princípios do **Atomic Design**, organizando componentes em diferentes níveis de complexidade:
+
 ```
 cestinho/
 ├── index.html              # Página principal
+├── components/             # Componentes seguindo Atomic Design
+│   ├── atoms/              # Componentes básicos reutilizáveis
+│   │   ├── Button.js       # Componente de botão
+│   │   ├── Icon.js         # Componente de ícones
+│   │   └── Input.js        # Componente de entrada
+│   ├── molecules/          # Combinações de átomos
+│   │   ├── FormField.js    # Campo de formulário
+│   │   └── StatusIndicator.js # Indicador de status
+│   └── organisms/          # Componentes complexos
+│       ├── Header.js       # Cabeçalho da aplicação
+│       ├── Modal.js        # Modal de configurações
+│       └── ShoppingList.js # Lista de compras
 ├── styles/
 │   └── main.css            # Estilos CSS
 ├── scripts/
