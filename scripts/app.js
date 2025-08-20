@@ -25,6 +25,7 @@ class ShoppingListApp {
         this.setupEventListeners();
         
         // Update UI
+        this.updateHeader();
         this.updateSettingsUI();
         this.updateLists();
         this.updateTotals();
@@ -249,103 +250,99 @@ class ShoppingListApp {
     }
 
     updatePendingList() {
-        const list = document.getElementById('pending-list');
-        list.innerHTML = '';
-
-        this.data.pending.forEach(item => {
-            const li = document.createElement('li');
-            li.className = 'item';
-            li.innerHTML = `
-                <div class="item-info">
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-details">
-                        ${item.quantity} ${this.i18n.get('total-items')} • ${item.unitWeight || item.weight} ${this.i18n.get('total-weight')}/un • Total: ${item.totalWeight || (item.quantity * (item.weight || 0)).toFixed(2)} ${this.i18n.get('total-weight')}
-                    </div>
-                </div>
-                <div class="item-actions">
-                    <button class="btn-complete" onclick="app.completeItem(${item.id})" title="${this.i18n.get('complete-button')}">
-                        ✅
-                    </button>
-                    <button class="btn-delete" onclick="app.deleteItem(${item.id})" title="${this.i18n.get('delete-button')}">
-                        🗑️
-                    </button>
-                </div>
-            `;
-            list.appendChild(li);
+        const container = document.querySelector('.lists-container .list-section:first-child');
+        if (!container) return;
+        
+        const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
+        const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
+        
+        const status = this.getStatus();
+        
+        const listComponent = ShoppingList.create({
+            title: this.i18n.get('pending-title'),
+            items: this.data.pending,
+            type: 'pending',
+            totalItems: totalItems,
+            totalWeight: totalWeight,
+            status: status.type,
+            statusText: status.text,
+            onItemComplete: (id) => this.completeItem(id),
+            onItemDelete: (id, fromCompleted) => this.deleteItem(id, fromCompleted),
+            onAddItem: () => this.openAddItemModal(),
+            onExportWhatsApp: () => this.exportToWhatsApp(),
+            i18n: this.i18n
         });
+        
+        container.replaceWith(listComponent);
     }
 
     updateCompletedList() {
-        const list = document.getElementById('completed-list');
-        list.innerHTML = '';
-
-        this.data.completed.forEach(item => {
-            const li = document.createElement('li');
-            li.className = 'item completed';
-            li.innerHTML = `
-                <div class="item-info">
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-details">
-                        ${item.quantity} ${this.i18n.get('total-items')} • ${item.unitWeight || item.weight} ${this.i18n.get('total-weight')}/un • Total: ${item.totalWeight || (item.quantity * (item.weight || 0)).toFixed(2)} ${this.i18n.get('total-weight')}
-                    </div>
-                </div>
-                <div class="item-actions">
-                    <button class="btn-restore" onclick="app.restoreItem(${item.id})" title="${this.i18n.get('restore-button')}">
-                        ↩️
-                    </button>
-                    <button class="btn-delete" onclick="app.deleteItem(${item.id}, true)" title="${this.i18n.get('delete-button')}">
-                        🗑️
-                    </button>
-                </div>
-            `;
-            list.appendChild(li);
+        const container = document.querySelector('.lists-container .list-section:last-child');
+        if (!container) return;
+        
+        const totalItems = this.data.completed.reduce((sum, item) => sum + item.quantity, 0);
+        const totalWeight = this.data.completed.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || item.unitWeight || 0))), 0);
+        
+        const listComponent = ShoppingList.create({
+            title: this.i18n.get('completed-title'),
+            items: this.data.completed,
+            type: 'completed',
+            totalItems: totalItems,
+            totalWeight: totalWeight,
+            showActions: false,
+            onItemRestore: (id) => this.restoreItem(id),
+            onItemDelete: (id, fromCompleted) => this.deleteItem(id, fromCompleted),
+            i18n: this.i18n
         });
+        
+        container.replaceWith(listComponent);
     }
 
     updateTotals() {
-        // Pending totals
-        const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
-        const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
-
-        document.getElementById('total-items').textContent = 
-            `${totalItems} ${this.i18n.get('total-items')}`;
-        document.getElementById('total-weight').textContent = 
-            `${totalWeight.toFixed(1)} ${this.i18n.get('total-weight')}`;
-
-        // Completed totals
-        const completedItems = this.data.completed.reduce((sum, item) => sum + item.quantity, 0);
-        const completedWeight = this.data.completed.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || item.unitWeight || 0))), 0);
-
-        document.getElementById('completed-total-items').textContent = 
-            `${completedItems} ${this.i18n.get('total-items')}`;
-        document.getElementById('completed-total-weight').textContent = 
-            `${completedWeight.toFixed(1)} ${this.i18n.get('total-weight')}`;
+        // Totals are now handled directly by the ShoppingList components
+        // This method is kept for compatibility but no longer needed
     }
 
-    updateStatus() {
+    updateHeader() {
+        const existingHeader = document.querySelector('header');
+        if (!existingHeader) return;
+        
+        const headerComponent = Header.create({
+            title: this.i18n.get('app-title'),
+            currentLanguage: this.settings.language,
+            onLanguageChange: (lang) => {
+                this.changeLanguage(lang);
+                
+                // Update active flag
+                document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+            }
+        });
+        
+        existingHeader.replaceWith(headerComponent);
+    }
+
+    getStatus() {
         const totalItems = this.data.pending.reduce((sum, item) => sum + item.quantity, 0);
         const totalWeight = this.data.pending.reduce((sum, item) => sum + (item.totalWeight || (item.quantity * (item.weight || 0))), 0);
 
-        const statusIcon = document.getElementById('status-icon');
-        
-        // Remove existing status classes
-        statusIcon.classList.remove('warning', 'danger');
-
-        // Check limits
         const itemsExceeded = totalItems > this.settings.maxItems;
         const weightExceeded = totalWeight > this.settings.maxWeight;
         const itemsDoubleExceeded = totalItems > (this.settings.maxItems * 2);
         const weightDoubleExceeded = totalWeight > (this.settings.maxWeight * 2);
 
         if (itemsDoubleExceeded || weightDoubleExceeded) {
-            statusIcon.classList.add('danger');
-            statusIcon.title = this.i18n.get('status-danger');
+            return { type: 'danger', text: this.i18n.get('status-danger') };
         } else if (itemsExceeded || weightExceeded) {
-            statusIcon.classList.add('warning');
-            statusIcon.title = this.i18n.get('status-warning');
+            return { type: 'warning', text: this.i18n.get('status-warning') };
         } else {
-            statusIcon.title = this.i18n.get('status-normal');
+            return { type: 'normal', text: this.i18n.get('status-normal') };
         }
+    }
+
+    updateStatus() {
+        // Status is now handled directly by the ShoppingList component
+        // This method is kept for compatibility but the logic is in getStatus()
     }
 
     updateSettingsUI() {
@@ -360,7 +357,8 @@ class ShoppingListApp {
             maxWeightEl.value = this.settings.maxWeight;
         }
         
-        // Update active flag button
+        // Flag buttons are now handled by the Header component
+        // This is kept for compatibility but may not be needed
         document.querySelectorAll('.flag-btn').forEach(btn => {
             btn.classList.remove('active');
             if (btn.dataset.lang === this.settings.language) {
@@ -411,6 +409,7 @@ class ShoppingListApp {
         this.settings.language = language;
         this.saveSettings();
         await this.i18n.changeLanguage(language);
+        this.updateHeader();
         this.updateLists();
         this.updateTotals();
         this.updateStatus();
