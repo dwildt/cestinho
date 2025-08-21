@@ -85,16 +85,6 @@ npm run lint:fix      # Executa ESLint e corrige problemas automaticamente
 npm run audit         # Executa auditoria completa do código
 ```
 
-#### Métodos alternativos para servidor local
-```bash
-# Método 2: Python
-python -m http.server 8000
-# Acesse http://localhost:8000
-
-# Método 3: Abrir diretamente no navegador
-# Abra o index.html no navegador (pode ter limitações de CORS)
-```
-
 ## 🧪 Testes
 
 O projeto utiliza uma estratégia abrangente de testes:
@@ -159,8 +149,17 @@ cestinho/
 │   ├── storage.test.js     # Testes do Storage
 │   ├── i18n.test.js        # Testes do I18n
 │   └── setup.js            # Configuração dos testes
+├── cypress/                # Testes E2E com Cypress
+│   ├── e2e/                # Testes funcionais
+│   │   └── shopping-list.cy.js # Testes da lista de compras
+│   ├── fixtures/           # Dados de teste
+│   │   └── sample-data.json # Dados de exemplo
+│   └── support/            # Comandos e configurações
+│       ├── commands.js     # Comandos customizados
+│       └── e2e.js          # Configuração de suporte
 ├── package.json            # Dependências e scripts
 ├── jest.config.js          # Configuração do Jest
+├── cypress.config.js       # Configuração do Cypress
 └── README.md               # Este arquivo
 ```
 
