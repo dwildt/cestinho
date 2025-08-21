@@ -1,0 +1,17 @@
+{
+  "shoppingList": [
+    {
+      "id": "1",
+      "name": "Teste Export",
+      "quantity": 1,
+      "weight": 1,
+      "completed": false
+    }
+  ],
+  "completedList": [],
+  "settings": {
+    "maxItems": 10,
+    "maxWeight": 15,
+    "language": "pt"
+  }
+}

@@ -23,6 +23,8 @@ Uma mini aplicação para gerir listas de compras para supermercados, desenvolvi
 - **HTML5** - Estrutura semântica
 - **CSS3** - Design responsivo e moderno
 - **Jest** - Testes unitários
+- **Cypress** - Testes funcionais (E2E)
+- **ESLint** - Análise estática de código
 - **LocalStorage** - Persistência de dados
 
 ## 🎯 Como usar
@@ -67,8 +69,20 @@ npx http-server -p 3000
 
 #### Executar testes
 ```bash
-npm test              # Executa todos os testes uma vez
-npm run test:watch    # Executa testes em modo watch (reexecuta ao salvar)
+# Testes unitários
+npm test              # Executa todos os testes unitários uma vez
+npm run test:watch    # Executa testes unitários em modo watch (reexecuta ao salvar)
+
+# Testes funcionais (E2E)
+npm run test:e2e      # Executa testes E2E em modo headless
+npm run test:e2e:open # Abre interface do Cypress para testes interativos
+```
+
+#### Auditoria de código
+```bash
+npm run lint          # Executa análise estática do código (ESLint)
+npm run lint:fix      # Executa ESLint e corrige problemas automaticamente
+npm run audit         # Executa auditoria completa do código
 ```
 
 #### Métodos alternativos para servidor local
@@ -83,14 +97,28 @@ python -m http.server 8000
 
 ## 🧪 Testes
 
-O projeto utiliza Jest para testes unitários com cobertura das principais funcionalidades:
+O projeto utiliza uma estratégia abrangente de testes:
 
+### Testes Unitários (Jest)
 - ✅ Gerenciamento de dados (localStorage)
 - ✅ Sistema de internacionalização (i18n)
 - ✅ Funcionalidades de importação/exportação
 - ✅ Tratamento de erros e casos extremos
 
-Execute `npm test` para rodar todos os testes.
+### Testes Funcionais (Cypress)
+- ✅ Fluxo completo de adição de itens
+- ✅ Marcação de itens como comprados
+- ✅ Sistema de totalizadores
+- ✅ Persistência de dados
+- ✅ Funcionalidades de exportação/importação
+- ✅ Troca de idiomas
+
+### Auditoria de Código (ESLint)
+- ✅ Análise estática de código
+- ✅ Verificação de boas práticas
+- ✅ Detecção de problemas potenciais
+
+Execute `npm test` para testes unitários, `npm run test:e2e` para testes E2E, e `npm run audit` para auditoria de código.
 
 ## 🌍 Idiomas Suportados
 
