@@ -1,5 +1,19 @@
 # Cestinho - Lista de Compras Inteligente
 
+[![CI](https://github.com/dwildt/cestinho/workflows/CI%20Pipeline/badge.svg)](https://github.com/dwildt/cestinho/actions)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](https://github.com/dwildt/cestinho)
+[![Cypress](https://img.shields.io/badge/e2e-cypress-green.svg)](https://github.com/dwildt/cestinho)
+[![Code Quality](https://img.shields.io/badge/code%20quality-ESLint-blue.svg)](https://github.com/dwildt/cestinho)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/demo-live-success.svg)](https://dwildt.github.io/cestinho)
+
+[![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-yellow.svg)](https://github.com/dwildt/cestinho)
+[![HTML5](https://img.shields.io/badge/HTML5-semantic-orange.svg)](https://github.com/dwildt/cestinho)
+[![CSS3](https://img.shields.io/badge/CSS3-responsive-blue.svg)](https://github.com/dwildt/cestinho)
+[![Jest](https://img.shields.io/badge/Jest-unit%20tests-red.svg)](https://github.com/dwildt/cestinho)
+[![Atomic Design](https://img.shields.io/badge/architecture-atomic%20design-purple.svg)](https://github.com/dwildt/cestinho)
+[![PWA Ready](https://img.shields.io/badge/PWA-ready-lightgreen.svg)](https://github.com/dwildt/cestinho)
+
 Uma mini aplicação para gerir listas de compras para supermercados, desenvolvida em JavaScript Vanilla. O aplicativo ajuda a organizar suas compras com funcionalidades inteligentes de controle de quantidade e peso.
 
 🌐 **[Acesse o aplicativo online](https://dwildt.github.io/cestinho)**
@@ -162,6 +176,26 @@ cestinho/
 ├── cypress.config.js       # Configuração do Cypress
 └── README.md               # Este arquivo
 ```
+
+## 🏆 Qualidade e Status
+
+Este projeto mantém altos padrões de qualidade com:
+
+- ✅ **100% dos testes E2E passando** - Testes funcionais com Cypress
+- ✅ **Testes unitários** - Cobertura das principais funcionalidades com Jest  
+- ✅ **Análise estática** - Código verificado com ESLint
+- ✅ **CI/CD** - Pipeline automatizado no GitHub Actions
+- ✅ **Atomic Design** - Arquitetura de componentes escalável
+- ✅ **Deploy automático** - GitHub Pages com atualizações contínuas
+
+### Status dos Testes
+
+| Tipo | Status | Comando |
+|------|--------|---------|
+| Unitários (Jest) | ✅ Passando | `npm test` |
+| E2E (Cypress) | ✅ Passando | `npm run test:e2e` |
+| Linting (ESLint) | ✅ Passando | `npm run lint` |
+| Build | ✅ Passando | `npm run dev` |
 
 ## 🤝 Contribuindo
 
