@@ -33,7 +33,6 @@ class ShoppingListApp {
 
     // Apply dark mode if enabled
     this.applyDarkMode()
-    this.updateDarkModeIcon()
   }
 
   setupEventListeners() {
@@ -60,10 +59,6 @@ class ShoppingListApp {
       })
     })
 
-    // Dark mode toggle
-    document.getElementById('dark-mode-toggle').addEventListener('click', () => {
-      this.toggleDarkMode()
-    })
 
     // Integrations Modal
     document.getElementById('integrations-button').addEventListener('click', () => {
@@ -319,12 +314,16 @@ class ShoppingListApp {
     const headerComponent = Header.create({
       title: this.i18n.get('app-title'),
       currentLanguage: this.settings.language,
+      darkMode: this.settings.darkMode,
       onLanguageChange: (lang) => {
         this.changeLanguage(lang)
 
         // Update active flag
         document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('active'))
         document.querySelector(`[data-lang="${lang}"]`).classList.add('active')
+      },
+      onDarkModeToggle: () => {
+        this.toggleDarkMode()
       }
     })
 
@@ -523,7 +522,7 @@ class ShoppingListApp {
     this.settings.darkMode = !this.settings.darkMode
     this.saveSettings()
     this.applyDarkMode()
-    this.updateDarkModeIcon()
+    this.updateHeader()
   }
 
   applyDarkMode() {
@@ -534,13 +533,6 @@ class ShoppingListApp {
     }
   }
 
-  updateDarkModeIcon() {
-    const darkModeBtn = document.getElementById('dark-mode-toggle')
-    if (darkModeBtn) {
-      darkModeBtn.innerHTML = this.settings.darkMode ? '☀️' : '🌙'
-      darkModeBtn.title = this.settings.darkMode ? 'Alternar para modo claro' : 'Alternar para modo escuro'
-    }
-  }
 
   copyToClipboard() {
     if (this.data.pending.length === 0) {

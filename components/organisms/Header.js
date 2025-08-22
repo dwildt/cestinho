@@ -8,6 +8,8 @@ class Header {
       { code: 'es', flag: '🇪🇸', title: 'Español' }
     ]
     this.onLanguageChange = options.onLanguageChange || (() => {})
+    this.darkMode = options.darkMode || false
+    this.onDarkModeToggle = options.onDarkModeToggle || (() => {})
     this.className = options.className || ''
     this.id = options.id || ''
   }
@@ -35,6 +37,15 @@ class Header {
       button.dataset.lang = lang.code
       languageSelector.appendChild(button)
     })
+
+    // Add dark mode toggle button
+    const darkModeButton = document.createElement('button')
+    darkModeButton.className = 'dark-mode-btn'
+    darkModeButton.id = 'dark-mode-toggle'
+    darkModeButton.innerHTML = this.darkMode ? '☀️' : '🌙'
+    darkModeButton.title = this.darkMode ? 'Alternar para modo claro' : 'Alternar para modo escuro'
+    darkModeButton.addEventListener('click', () => this.onDarkModeToggle())
+    languageSelector.appendChild(darkModeButton)
 
     header.appendChild(titleElement)
     header.appendChild(languageSelector)
