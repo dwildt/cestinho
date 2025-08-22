@@ -22,12 +22,15 @@ Uma mini aplicação para gerir listas de compras para supermercados, desenvolvi
 
 - ✅ **Adicionar itens** com nome, quantidade e peso
 - 📊 **Totalizadores automáticos** de quantidade e peso
-- 🚦 **Sistema de sinalizações** - Amarela (limite atingido) e Vermelha (dobro do limite)
+- 🚦 **Sistema de sinalizações** - Verde (normal), Amarela (limite atingido) e Vermelha (dobro do limite)
 - ✅ **Marcar itens como comprados** e movê-los para lista de concluídos
 - 🔄 **Restaurar itens** da lista de concluídos
 - 💾 **Armazenamento local** - seus dados ficam salvos no navegador
 - 📥📤 **Exportar/Importar** listas em formato JSON
+- 📲 **Compartilhar no WhatsApp** - envie sua lista direto pelo WhatsApp
+- 📋 **Copiar para área de transferência** - cole sua lista em qualquer lugar
 - 🌍 **Multilíngue** - Português, Inglês e Espanhol
+- 🌙 **Modo escuro** - alterne entre tema claro e escuro
 - 📱 **Design responsivo** - funciona perfeitamente em mobile
 - ⚙️ **Configurações personalizáveis** - defina seus próprios limites
 
@@ -44,14 +47,17 @@ Uma mini aplicação para gerir listas de compras para supermercados, desenvolvi
 ## 🎯 Como usar
 
 1. **Configurar limites**: Defina o máximo de itens (padrão: 10) e peso máximo (padrão: 15kg)
-2. **Adicionar itens**: Preencha nome, quantidade e peso do item
-3. **Acompanhar totais**: Veja a quantidade total e peso no topo da lista
-4. **Observar sinalizações**: 
+2. **Escolher tema**: Use o botão 🌙/☀️ para alternar entre modo claro e escuro
+3. **Selecionar idioma**: Clique nas bandeiras 🇧🇷🇺🇸🇪🇸 para mudar o idioma
+4. **Adicionar itens**: Preencha nome, quantidade e peso do item
+5. **Acompanhar totais**: Veja a quantidade total e peso no topo da lista
+6. **Observar sinalizações**: 
    - 🟢 Verde: Normal
    - 🟡 Amarelo: Limite atingido
    - 🔴 Vermelho: Dobro do limite excedido
-5. **Marcar como comprado**: Move o item para a lista de concluídos
-6. **Exportar/Importar**: Salve e carregue suas listas
+7. **Marcar como comprado**: Move o item para a lista de concluídos
+8. **Compartilhar**: Use 📲 para WhatsApp ou 📋 para copiar
+9. **Exportar/Importar**: Salve e carregue suas listas via 📤
 
 ## 📱 Instalação e Execução
 
