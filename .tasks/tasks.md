@@ -4,12 +4,12 @@ Para cada tarefa realizada, fazer o commit dos arquivos modificados, depois de g
 
 ## TODO 
 
-[ ] feat: implementar darkmode. Deixar ícone próximo do local de seleção dos idiomas. No modo darkmode, inverter as cores laranja e marrom, quando usar o fundo preto. Na mensagem de commit usar "feat: darkmode".  
-[ ] doc: revisar sobre as funcionalidades e ícones usados no readme para descrever as funcionalidades do sistema. Mensagem de commit: "doc: revisão de funcionalidades".  
-[ ] raw: ajuste no texto de copiar lista. Trocar de "Copiar para área de transferência" para "Copiar lista para área de transferência". Ajustar em todos idiomas. Na mensagem de commit usar: "raw: trocar mensagem de cópia da lista para Copiar lista para área de transferência".  
   
   
 ## DONE
+  [x] feat: implementar darkmode. Deixar ícone próximo do local de seleção dos idiomas. No modo darkmode, inverter as cores laranja e marrom, quando usar o fundo preto. Na mensagem de commit usar "feat: darkmode". (Aug 22nd 2025)
+  [x] doc: revisar sobre as funcionalidades e ícones usados no readme para descrever as funcionalidades do sistema. Mensagem de commit: "doc: revisão de funcionalidades". (Aug 22nd 2025)
+  [x] raw: ajuste no texto de copiar lista. Trocar de "Copiar para área de transferência" para "Copiar lista para área de transferência". Ajustar em todos idiomas. Na mensagem de commit usar: "raw: trocar mensagem de cópia da lista para Copiar lista para área de transferência". (Aug 22nd 2025)
   [x] implementar testes funcionais usando cypress.  (Aug 21st 2025)
   
   [x] adicionar ferramenta de auditoria estática de código. Ajustar comandos no README para poder rodar. Adicionar também na estrutura de pipeline. (Aug 21st 2025)
