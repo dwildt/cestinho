@@ -597,21 +597,23 @@ body.dark-mode .modal-footer {
 }
 
 body.dark-mode .btn-primary {
-    background-color: #8b4513;
-    color: white;
+    background-color: transparent;
+    color: #ff7b00;
 }
 
 body.dark-mode .btn-primary:hover {
-    background-color: #6d3410;
+    background-color: rgba(255, 123, 0, 0.1);
+    color: #ff7b00;
 }
 
 body.dark-mode button {
-    background-color: #8b4513;
-    color: white;
+    background-color: transparent;
+    color: #ff7b00;
 }
 
 body.dark-mode button:hover {
-    background-color: #6d3410;
+    background-color: rgba(255, 123, 0, 0.1);
+    color: #ff7b00;
 }
 
 body.dark-mode .list-totals {
