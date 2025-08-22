@@ -515,8 +515,16 @@ body.dark-mode .item-details {
     color: #bbb;
 }
 
+body.dark-mode .item-actions button {
+    background-color: transparent;
+    border: 1px solid #8b4513;
+    color: #8b4513;
+}
+
 body.dark-mode .item-actions button:hover {
-    background-color: #444;
+    background-color: rgba(139, 69, 19, 0.1);
+    border-color: #ff7b00;
+    color: #ff7b00;
 }
 
 body.dark-mode .integration-btn {
@@ -597,19 +605,27 @@ body.dark-mode .modal-footer {
 }
 
 body.dark-mode .btn-primary {
-    background-color: #8b4513;
+    background-color: transparent;
+    border: 2px solid #8b4513;
+    color: #8b4513;
 }
 
 body.dark-mode .btn-primary:hover {
-    background-color: #6d3410;
+    background-color: rgba(139, 69, 19, 0.1);
+    border-color: #ff7b00;
+    color: #ff7b00;
 }
 
 body.dark-mode button {
-    background-color: #8b4513;
+    background-color: transparent;
+    border: 2px solid #8b4513;
+    color: #8b4513;
 }
 
 body.dark-mode button:hover {
-    background-color: #6d3410;
+    background-color: rgba(139, 69, 19, 0.1);
+    border-color: #ff7b00;
+    color: #ff7b00;
 }
 
 body.dark-mode .list-totals {
