@@ -110,9 +110,10 @@ cestinho/
 
 ### Build & Deploy
 - **http-server** - Servidor de desenvolvimento
-- **GitHub Actions** - CI/CD pipeline
+- **GitHub Actions** - CI/CD pipeline (Node.js 20)
 - **GitHub Pages** - Deploy automático
 - **start-server-and-test** - Coordenação servidor/testes
+- **cypress-io/github-action** - Cypress oficial para CI
 
 ### Development Tools
 - **Dependabot** - Atualizações automáticas de dependências
@@ -250,6 +251,25 @@ npm run lint
 5. **Use comandos Cypress customizados** para testes complexos
 6. **Siga Atomic Design** para novos componentes
 7. **Documente mudanças significativas** no README.md
+
+## 🔧 Troubleshooting CI/CD
+
+### Cypress no GitHub Actions
+- **Node.js 20** é requerido para Cypress mais recente
+- **cypress-io/github-action@v6** resolve problemas de loader
+- **wait-on** aguarda servidor estar disponível antes dos testes
+
+### Problemas Comuns
+```bash
+# Erro tsx loader
+# Solução: Usar cypress-io/github-action em vez de npm run test:e2e
+
+# Timeout nos testes
+# Solução: Aumentar wait-on-timeout para 120s
+
+# Problemas de memória
+# Solução: NODE_OPTIONS: '--max-old-space-size=4096'
+```
 
 ## 🚨 Regras Importantes
 

@@ -18,7 +18,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         cache: 'npm'
         
     - name: Install dependencies
@@ -30,15 +30,12 @@ jobs:
     - name: Run unit tests
       run: npm test
       
-    - name: Start server for E2E tests
-      run: npm run serve &
-      
-    - name: Wait for server
-      run: |
-        timeout 30s bash -c 'until curl -f http://localhost:3000; do sleep 1; done'
-        
-    - name: Run E2E tests
-      run: npm run test:e2e
+    - name: Cypress run
+      uses: cypress-io/github-action@v6
+      with:
+        start: npm run dev
+        wait-on: 'http://localhost:3000'
+        wait-on-timeout: 120
       
     - name: Upload Cypress screenshots
       uses: actions/upload-artifact@v4
