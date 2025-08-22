@@ -17,7 +17,7 @@ describe('Cestinho - Shopping List App', () => {
   it('should change language', () => {
     cy.get('.flag-btn[data-lang="en"]').click()
     cy.wait(1000)
-    
+
     cy.get('.flag-btn[data-lang="pt"]').click()
     cy.wait(1000)
     cy.get('#app-title').should('contain', 'Cestinho')
@@ -26,7 +26,7 @@ describe('Cestinho - Shopping List App', () => {
   it('should open settings modal', () => {
     cy.get('#settings-button').should('be.visible').click()
     cy.get('#settings-modal').should('be.visible')
-    
+
     // Fechar modal
     cy.get('#cancel-settings').click()
     cy.get('#settings-modal').should('not.be.visible')
@@ -35,7 +35,7 @@ describe('Cestinho - Shopping List App', () => {
   it('should open integrations modal', () => {
     cy.get('#integrations-button').should('be.visible').click()
     cy.get('#integrations-modal').should('be.visible')
-    
+
     // Fechar modal
     cy.get('#close-integrations-btn').click()
     cy.get('#integrations-modal').should('not.be.visible')

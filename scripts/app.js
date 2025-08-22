@@ -3,7 +3,7 @@ class ShoppingListApp {
     this.storage = new Storage()
     this.i18n = new I18n()
     this.data = { pending: [], completed: [] }
-    this.settings = { maxItems: 10, maxWeight: 15.0, language: 'pt' }
+    this.settings = { maxItems: 10, maxWeight: 15.0, language: 'pt', darkMode: false }
     this.nextId = 1
 
     this.init()
@@ -30,6 +30,10 @@ class ShoppingListApp {
     this.updateLists()
     this.updateTotals()
     this.updateStatus()
+
+    // Apply dark mode if enabled
+    this.applyDarkMode()
+    this.updateDarkModeIcon()
   }
 
   setupEventListeners() {
@@ -54,6 +58,11 @@ class ShoppingListApp {
         document.querySelectorAll('.flag-btn').forEach(b => b.classList.remove('active'))
         e.target.classList.add('active')
       })
+    })
+
+    // Dark mode toggle
+    document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+      this.toggleDarkMode()
     })
 
     // Integrations Modal
@@ -508,6 +517,29 @@ class ShoppingListApp {
 
     // Open WhatsApp (works on mobile and desktop)
     window.open(whatsappUrl, '_blank')
+  }
+
+  toggleDarkMode() {
+    this.settings.darkMode = !this.settings.darkMode
+    this.saveSettings()
+    this.applyDarkMode()
+    this.updateDarkModeIcon()
+  }
+
+  applyDarkMode() {
+    if (this.settings.darkMode) {
+      document.body.classList.add('dark-mode')
+    } else {
+      document.body.classList.remove('dark-mode')
+    }
+  }
+
+  updateDarkModeIcon() {
+    const darkModeBtn = document.getElementById('dark-mode-toggle')
+    if (darkModeBtn) {
+      darkModeBtn.innerHTML = this.settings.darkMode ? '☀️' : '🌙'
+      darkModeBtn.title = this.settings.darkMode ? 'Alternar para modo claro' : 'Alternar para modo escuro'
+    }
   }
 
   copyToClipboard() {

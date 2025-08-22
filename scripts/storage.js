@@ -40,11 +40,12 @@ class Storage {
       return settings ? JSON.parse(settings) : {
         maxItems: 10,
         maxWeight: 15.0,
-        language: 'pt'
+        language: 'pt',
+        darkMode: false
       }
     } catch (error) {
       console.error('Error loading settings:', error)
-      return { maxItems: 10, maxWeight: 15.0, language: 'pt' }
+      return { maxItems: 10, maxWeight: 15.0, language: 'pt', darkMode: false }
     }
   }
 
