@@ -139,7 +139,12 @@ class ShoppingList {
     const itemsList = document.createElement('ul')
     itemsList.className = 'items-list'
 
-    this.items.forEach(item => {
+    // Sort items alphabetically by name
+    const sortedItems = [...this.items].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+    )
+
+    sortedItems.forEach(item => {
       const listItem = this.renderListItem(item)
       itemsList.appendChild(listItem)
     })
