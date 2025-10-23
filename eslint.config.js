@@ -39,6 +39,7 @@ module.exports = [
         beforeAll: 'readonly',
         afterAll: 'readonly',
         jest: 'readonly',
+        global: 'readonly',
         // Cypress globals
         cy: 'readonly',
         Cypress: 'readonly',
